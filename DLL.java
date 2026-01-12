@@ -1,10 +1,11 @@
-public class creatingDLL {
+
+public class DLL {
 
     private  Node head;
     private Node tail;
     private int size;
     
-    public creatingDLL() {
+    public DLL() {
         this.size = 0;
     }
 
@@ -17,7 +18,7 @@ public class creatingDLL {
         public Node(int val) {
             this.val = val;
         }
-        public Node(int val, creatingDLL.Node pre, creatingDLL.Node next) {
+        public Node(int val, DLL.Node pre, DLL.Node next) {
             this.val = val;
             this.pre = pre;
             this.next = next;
@@ -68,7 +69,7 @@ public class creatingDLL {
         size++;
     }
     public static void main(String[] args) {
-        creatingDLL dl =new creatingDLL();
+        DLL dl =new DLL();
         dl.insertFirst(10);
         dl.insertFirst(20);
         dl.insertFirst(40);

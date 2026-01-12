@@ -1,11 +1,11 @@
 
-class createLL {
+public class LL {
 
     private Node head;
     private Node tail;
     private int size;
 
-    public createLL() {
+    public LL() {
         this.size = 0;
     }
 
@@ -126,21 +126,78 @@ class createLL {
         }
         return -1;
      }
+
+
+     public void removeDuplicate(){
+        Node node = head;
+        while (node.next != null) {
+            if (node.next != null && node.val == node.next.val) {
+                node.next = node.next.next;
+                size--;
+            }
+            else{
+                node = node.next;
+            }
+        }
+        tail = node;
+        tail.next = null;
+     }
+
+     public LL merge_two_ll(LL ll1, LL ll2){
+        Node f = ll1.head;
+        Node s = ll2.head;
+        LL ans = new LL();
+        while (f != null && s != null) {
+            if(f.val <= s.val){
+                ans.insertLast(f.val);
+                f = f.next;
+            }
+            else{
+                ans.insertLast(s.val);
+                s = s.next;
+            }
+        }
+        while(f != null){
+            ans.insertLast(f.val);
+            f = f.next;
+        }
+        while(s != null){
+            ans.insertLast(s.val);
+            s = s.next;
+        }
+        return ans;
+     }
     
     public static void main(String[] args) {
-        createLL ll =new createLL();
-        ll.insertFirst(10);
-        ll.insertFirst(30);
-        ll.insertFirst(40);
-        ll.insertLast(700);
+        LL ll =new LL();
+        ll.insertLast(1);
+        ll.insertLast(2);
+        ll.insertLast(4);
+        
+        LL ll2 =new LL();
+        ll2.insertLast(1);
+        ll2.insertLast(3);
+        ll2.insertLast(4);
         // ll.insertAtindex(100, 0);
         ll.display();
+        System.out.println();
+        ll2.display();
+        System.out.println();
         // ll.deleteFirst();
         // ll.deleteLast();
         // ll.delete(2);
-        System.out.println();
-        System.out.println(ll.find(700));
-        System.out.println();
-        ll.display();
+        // System.out.println();
+        // System.out.println(ll.find(700));
+        // System.out.println();
+        // ll.display();
+
+        // ll.removeDuplicate();
+        ll.merge_two_ll(ll, ll2).display();
+
+        
+        
+        
+
+
     }
 }
