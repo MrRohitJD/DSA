@@ -279,8 +279,6 @@ public class LL {
         return s;
     }
 
-
-
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) {
             return head;
@@ -358,7 +356,51 @@ public class LL {
 
     }
 
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        ListNode mid = mid(head);
+        ListNode hs = rev(mid);
+        ListNode hf = head;
+
+        while (hf != null && hs != null) {
+
+            ListNode temp = hf.next;
+            hf.next = hs;
+            hf = temp;
+
+            temp = hs.next;
+            hs.next = hf;
+            hs = temp;
+
+        }
+        if (hf != null) {
+            hf.next = null;
+        }
+
+    }
+
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode headnode = head;
+        while (headnode != null) {
+            ListNode last = null;
+
+            for (int i = 1; i <= k; i++) {
+                last = headnode;
+                headnode = headnode.next;
+            }
+            ListNode temp = headnode;
+            ListNode newhead = rev(temp);
+            temp.next = last.next;
+        }
+        return head;
+    }
+
     public ListNode rev(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
         ListNode prev = null;
         ListNode curr = head;
 
@@ -368,51 +410,75 @@ public class LL {
             prev = curr;
             curr = next;
         }
-        return prev;
-    }
-
-    public void reorderList(ListNode head) {
-        if (head ==null || head.next ==null) {
-            return;
-        }
-        ListNode mid = mid(head);
-        ListNode hs = rev(mid);
-        ListNode hf =head;
-        
-        while(hf !=null && hs != null){
-            
-            ListNode temp = hf.next;
-            hf.next = hs;
-            hf =temp;
-
-            temp = hs.next;
-            hs.next = hf;
-            hs =temp;
-            
-        }
-        if(hf != null){
-            hf.next =null;
-        }
+        head = prev;
+        return head;
 
     }
 
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null) {
+            return head;
+        }
+        ListNode newhead = rev(head);
+        if (n == 1) {
+            return rev(newhead.next);
+        }
 
+        ListNode temp = newhead;
+        for (int i = 1; temp.next != null && i < n - 1; i++) {
+            temp = temp.next;
+        }
+        if (temp != null) {
+            temp.next = temp.next.next;
+        }
+        newhead = rev(newhead);
+        return newhead;
 
-    public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode headnode =head;
-        while(headnode != null){
-            ListNode last =null;
+    }
 
-            for (int i = 1; i <= k; i++) {
-                last = headnode;
-                headnode = headnode.next;
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    public ListNode removeElements(ListNode head, int val) {
+        while (head != null && head.val == val) {
+            head = head.next;
+        }
+
+        ListNode temp = head;
+
+        while (temp != null && temp.next != null) {
+            if (temp.next.val == val) {
+                temp.next = temp.next.next;
+            } else {
+                temp = temp.next;
             }
-            ListNode temp =headnode;
-            ListNode newhead = rev(temp);
-            temp.next =last.next;
         }
         return head;
     }
+
+    public ListNode deleteDuplicates_82(ListNode head) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode prev = dummy;
+        ListNode cur =head;
+
+        while(cur != null && cur.next != null){
+            if (cur.val == cur.next.next.val) {
+                while (cur.next !=null && cur.val ==cur.next.val) {
+                    cur =cur.next;
+                }
+                prev.next = cur.next;
+            }
+            else{
+                prev =cur.next;
+            }
+            cur =cur.next;
+        }
+        return  dummy.next;
+    }
+
     public static void main(String[] args) {
         LL ll = new LL();
         ll.insertLast(1);
