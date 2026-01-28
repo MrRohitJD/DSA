@@ -1,4 +1,6 @@
 
+import java.util.HashMap;
+
 public class LL {
 
     private ListNode head;
@@ -462,21 +464,79 @@ public class LL {
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
         ListNode prev = dummy;
-        ListNode cur =head;
+        ListNode cur = head;
 
-        while(cur != null && cur.next != null){
+        while (cur != null && cur.next != null) {
             if (cur.val == cur.next.next.val) {
-                while (cur.next !=null && cur.val ==cur.next.val) {
-                    cur =cur.next;
+                while (cur.next != null && cur.val == cur.next.val) {
+                    cur = cur.next;
                 }
                 prev.next = cur.next;
+            } else {
+                prev = cur.next;
             }
-            else{
-                prev =cur.next;
-            }
-            cur =cur.next;
+            cur = cur.next;
         }
-        return  dummy.next;
+        return dummy.next;
+    }
+
+    public ListNode modifiedList(int[] nums, ListNode head) {
+        java.util.HashMap hm = new HashMap();
+        for (int i = 0; i < nums.length; i++) {
+            hm.put(nums[i], 1);
+        }
+
+        ListNode node = head;
+        while (head != null && hm.containsKey(head.val)) {
+            head = head.next;
+        }
+
+        while (node != null && node.next != null) {
+            if (hm.get(node.next.val) != null) {
+                node.next = node.next.next;
+            } else {
+                node = node.next;
+            }
+        }
+        return head;
+    }
+
+    public ListNode deleteMiddle(ListNode head) {
+        if (head == null && head.next == null) {
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        slow.next = slow.next.next;
+
+        return head;
+    }
+
+    public ListNode swapNodes(ListNode head, int k) {
+
+        ListNode node = head;
+        ListNode nodef = head;
+        ListNode nodel = head;
+
+        int len = 0;
+        while (node != null) {
+            len++;
+            node = node.next;
+        }
+        for (int i = 1; i < k; i++) {
+            nodef = nodef.next;
+        }
+        for (int i = 1; i < (len - k) + 1; i++) {
+            nodel = nodel.next;
+        }
+        int temp = nodef.val;
+        nodef.val = nodel.val;
+        nodel.val = temp;
+        return head;
     }
 
     public static void main(String[] args) {
