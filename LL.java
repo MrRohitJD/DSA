@@ -133,6 +133,7 @@ public class LL {
         return -1;
     }
 
+    // https://leetcode.com/problems/remove-duplicates-from-sorted-list/
     public void removeDuplicate() {
         ListNode ListNode = head;
         while (ListNode.next != null) {
@@ -147,6 +148,7 @@ public class LL {
         tail.next = null;
     }
 
+    // https://leetcode.com/problems/merge-two-sorted-lists/
     public LL merge_two_ll(LL ll1, LL ll2) {
         ListNode f = ll1.head;
         ListNode s = ll2.head;
@@ -171,6 +173,7 @@ public class LL {
         return ans;
     }
 
+    // https://leetcode.com/problems/linked-list-cycle/
     public boolean hasCycle(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
@@ -209,6 +212,7 @@ public class LL {
         return -1;
     }
 
+    // https://leetcode.com/problems/linked-list-cycle-ii/
     public ListNode detectCycle(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
@@ -254,6 +258,7 @@ public class LL {
         return ans;
     }
 
+    // https://leetcode.com/problems/happy-number/
     public boolean isHappy(int n) {
 
         int slow = n;
@@ -270,6 +275,7 @@ public class LL {
         return false;
     }
 
+    // https://leetcode.com/problems/middle-of-the-linked-list/
     public ListNode mid(ListNode head) {
         ListNode s = head;
         ListNode f = head;
@@ -281,6 +287,7 @@ public class LL {
         return s;
     }
 
+    // https://leetcode.com/problems/sort-list/
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) {
             return head;
@@ -327,6 +334,7 @@ public class LL {
 
     }
 
+    // https://leetcode.com/problems/reverse-linked-list/
     public ListNode reverse(ListNode head) {
         ListNode prev = null;
         ListNode curr = head;
@@ -340,6 +348,7 @@ public class LL {
         return prev;
     }
 
+    // https://leetcode.com/problems/palindrome-linked-list/
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
             return true;
@@ -358,6 +367,7 @@ public class LL {
 
     }
 
+    // https://leetcode.com/problems/reorder-list/
     public void reorderList(ListNode head) {
         if (head == null || head.next == null) {
             return;
@@ -383,6 +393,7 @@ public class LL {
 
     }
 
+    // https://leetcode.com/problems/reverse-nodes-in-k-group/
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode headnode = head;
         while (headnode != null) {
@@ -417,6 +428,7 @@ public class LL {
 
     }
 
+    // https://leetcode.com/problems/remove-nth-node-from-end-of-list/
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null) {
             return head;
@@ -438,11 +450,13 @@ public class LL {
 
     }
 
+    // https://leetcode.com/problems/delete-node-in-a-linked-list/
     public void deleteNode(ListNode node) {
         node.val = node.next.val;
         node.next = node.next.next;
     }
 
+    // https://leetcode.com/problems/remove-linked-list-elements/
     public ListNode removeElements(ListNode head, int val) {
         while (head != null && head.val == val) {
             head = head.next;
@@ -460,6 +474,7 @@ public class LL {
         return head;
     }
 
+    // https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
     public ListNode deleteDuplicates_82(ListNode head) {
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
@@ -480,6 +495,7 @@ public class LL {
         return dummy.next;
     }
 
+    // https://leetcode.com/problems/delete-nodes-from-linked-list-present-in-array/
     public ListNode modifiedList(int[] nums, ListNode head) {
         java.util.HashMap hm = new HashMap();
         for (int i = 0; i < nums.length; i++) {
@@ -501,6 +517,7 @@ public class LL {
         return head;
     }
 
+    // https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
     public ListNode deleteMiddle(ListNode head) {
         if (head == null && head.next == null) {
             return head;
@@ -516,6 +533,7 @@ public class LL {
         return head;
     }
 
+    // https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
     public ListNode swapNodes(ListNode head, int k) {
 
         ListNode node = head;
@@ -537,6 +555,77 @@ public class LL {
         nodef.val = nodel.val;
         nodel.val = temp;
         return head;
+    }
+
+    // https://leetcode.com/problems/merge-in-between-linked-lists/
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+          if (list1 ==null ) {
+            return list2;
+        }
+        if (list2 ==null ) {
+            return list1;
+        }
+
+        ListNode l2tail = list2;
+         while (l2tail != null && l2tail.next != null) { 
+            l2tail = l2tail.next;
+        }
+
+        ListNode l1endNode = list1;
+        for (int i = 0; i < b; i++) {
+            l1endNode = l1endNode.next;
+        }
+
+        ListNode temp = list1;
+        for (int i = 0; i < a - 1; i++) {
+            temp = temp.next;
+        }
+        temp.next = list2;
+        l2tail.next = l1endNode.next;
+        return list1;
+    }
+    
+    public ListNode revlist11(ListNode head){
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode prev =null;
+        ListNode curr =head;
+        
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next =prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    // https://leetcode.com/problems/double-a-number-represented-as-a-linked-list/
+    public ListNode doubleIt(ListNode head) {
+        int sum =0;
+        ListNode temp = head;
+
+        while (temp != null) {
+        sum = sum * 10 + temp.val;  
+        temp = temp.next;
+        }
+
+        long getnum = sum*2;
+            if (getnum == 0) {
+        return new ListNode(0);
+    }
+
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        while (getnum >0) {
+            long rem =(int)(getnum%10);
+            curr.next = new ListNode((int) rem);
+            curr = curr.next;
+            getnum /=10;
+        }
+        ListNode newhead = dummy.next;
+        return  revlist11(newhead);
     }
 
     public static void main(String[] args) {
