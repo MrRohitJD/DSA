@@ -559,15 +559,15 @@ public class LL {
 
     // https://leetcode.com/problems/merge-in-between-linked-lists/
     public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
-          if (list1 ==null ) {
+        if (list1 == null) {
             return list2;
         }
-        if (list2 ==null ) {
+        if (list2 == null) {
             return list1;
         }
 
         ListNode l2tail = list2;
-         while (l2tail != null && l2tail.next != null) { 
+        while (l2tail != null && l2tail.next != null) {
             l2tail = l2tail.next;
         }
 
@@ -584,17 +584,17 @@ public class LL {
         l2tail.next = l1endNode.next;
         return list1;
     }
-    
-    public ListNode revlist11(ListNode head){
+
+    public ListNode revlist11(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode prev =null;
-        ListNode curr =head;
-        
+        ListNode prev = null;
+        ListNode curr = head;
+
         while (curr != null) {
             ListNode next = curr.next;
-            curr.next =prev;
+            curr.next = prev;
             prev = curr;
             curr = next;
         }
@@ -603,29 +603,58 @@ public class LL {
 
     // https://leetcode.com/problems/double-a-number-represented-as-a-linked-list/
     public ListNode doubleIt(ListNode head) {
-        int sum =0;
+        int sum = 0;
         ListNode temp = head;
 
         while (temp != null) {
-        sum = sum * 10 + temp.val;  
-        temp = temp.next;
+            sum = sum * 10 + temp.val;
+            temp = temp.next;
         }
 
-        long getnum = sum*2;
-            if (getnum == 0) {
-        return new ListNode(0);
-    }
+        long getnum = sum * 2;
+        if (getnum == 0) {
+            return new ListNode(0);
+        }
 
         ListNode dummy = new ListNode(0);
         ListNode curr = dummy;
-        while (getnum >0) {
-            long rem =(int)(getnum%10);
+        while (getnum > 0) {
+            long rem = (int) (getnum % 10);
             curr.next = new ListNode((int) rem);
             curr = curr.next;
-            getnum /=10;
+            getnum /= 10;
         }
         ListNode newhead = dummy.next;
-        return  revlist11(newhead);
+        return revlist11(newhead);
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        int carry = 0;
+
+        while (l1 != null || l2 != null || carry != 0) {
+
+            int v1 = (l1 != null) ? l1.val : 0;
+            int v2 = (l2 != null) ? l2.val : 0;
+
+            int sum = v1 + v2 + carry;
+
+            carry = sum / 10;
+            int digit = sum % 10;
+
+            curr.next = new ListNode(digit);
+            curr = curr.next;
+
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                l2 = l2.next;
+            }
+        }
+
+        return dummy.next;
     }
 
     public static void main(String[] args) {
